@@ -1,6 +1,6 @@
 package org.example.notes.controller;
 
-import org.example.notes.dto.NoteDto;
+import org.example.notes.entity.Note;
 import org.example.notes.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,27 +17,27 @@ public class NoteController {
     private NoteService noteService;
 
     @PostMapping
-    public ResponseEntity<NoteDto> createNote(@RequestBody NoteDto noteDto) {
-        NoteDto savedNote = noteService.createNote(noteDto);
+    public ResponseEntity<Note> createNote(@RequestBody Note note) {
+        Note savedNote = noteService.createNote(note);
         return new ResponseEntity<>(savedNote, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<NoteDto> getNoteById(@PathVariable("id") String noteId) {
-        NoteDto noteDto = noteService.getNoteById(noteId);
-        return new ResponseEntity<>(noteDto, HttpStatus.OK);
+    public ResponseEntity<Note> getNoteById(@PathVariable("id") String noteId) {
+        Note note = noteService.getNoteById(noteId);
+        return new ResponseEntity<>(note, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<NoteDto>> getAllNotes() {
-        List<NoteDto> noteDtos = noteService.getAllNotes();
-        return new ResponseEntity<>(noteDtos, HttpStatus.OK);
+    public ResponseEntity<List<Note>> getAllNotes() {
+        List<Note> notes = noteService.getAllNotes();
+        return new ResponseEntity<>(notes, HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<NoteDto> updateNote(@PathVariable("id") String noteId,
-                                              @RequestBody NoteDto updateNoteDto) {
-        NoteDto updatedNote = noteService.updateNote(noteId, updateNoteDto);
+    public ResponseEntity<Note> updateNote(@PathVariable("id") String noteId,
+                                              @RequestBody Note updateNote) {
+        Note updatedNote = noteService.updateNote(noteId, updateNote);
         return new ResponseEntity<>(updatedNote, HttpStatus.OK);
     }
 

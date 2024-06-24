@@ -1,13 +1,12 @@
 package org.example.notes.service;
 
-import org.example.notes.dto.NoteDto;
-
+import org.example.notes.entity.Note;
 import java.util.List;
 
 public interface NoteService {
-    NoteDto createNote(NoteDto noteDto);
-    List<NoteDto> getAllNotes();
-    NoteDto getNoteById(String id);
-    NoteDto updateNote(String id, NoteDto updatedNoteDto);
+    Note createNote(Note note);
+    List<Note> getAllNotes();
+    Note getNoteById(String id);
+    Note updateNote(String id, Note updatedNote);
     void deleteNoteById(String id);
 }

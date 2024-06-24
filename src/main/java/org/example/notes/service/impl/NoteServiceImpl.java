@@ -1,10 +1,8 @@
 package org.example.notes.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.example.notes.dto.NoteDto;
 import org.example.notes.entity.Note;
 import org.example.notes.exception.ResourceNotFoundException;
-import org.example.notes.mapper.NoteMapper;
 import org.example.notes.repository.NotesRepository;
 import org.example.notes.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,36 +19,30 @@ public class NoteServiceImpl implements NoteService {
     private final NotesRepository notesRepository;
 
     @Override
-    public NoteDto createNote(NoteDto noteDto) {
-        Note note = NoteMapper.mapToNote(noteDto);
-        Note savedNote = notesRepository.save(note);
-        return NoteMapper.mapToNoteDto(savedNote);
+    public Note createNote(Note note) {
+        return notesRepository.save(note);
     }
 
     @Override
-    public List<NoteDto> getAllNotes() {
-        List<Note> notes = notesRepository.findAll();
-        return notes.stream().map(NoteMapper::mapToNoteDto)
-                .collect(Collectors.toList());
+    public List<Note> getAllNotes() {
+        return notesRepository.findAll();
     }
 
     @Override
-    public NoteDto getNoteById(String id) {
-        Note note =  notesRepository.findById(id)
+    public Note getNoteById(String id) {
+        return notesRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Note does not exist with id: " + id));
-        return NoteMapper.mapToNoteDto(note);
     }
 
     @Override
-    public NoteDto updateNote(String id, NoteDto updatedNoteDto) {
+    public Note updateNote(String id, Note updatedNote) {
         Note note =  notesRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Note does not exist with id: " + id));
 
-        note.setTitle(updatedNoteDto.getTitle());
-        note.setContent(updatedNoteDto.getContent());
-        Note savedNote = notesRepository.save(note);
-        return NoteMapper.mapToNoteDto(savedNote);
+        note.setTitle(updatedNote.getTitle());
+        note.setContent(updatedNote.getContent());
+        return notesRepository.save(note);
     }
 
     @Override
