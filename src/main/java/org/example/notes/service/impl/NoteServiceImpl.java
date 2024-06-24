@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -47,7 +46,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public void deleteNoteById(String id) {
-        Note note =  notesRepository.findById(id)
+        notesRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Note does not exist with id: " + id));
 
         notesRepository.deleteById(id);
