@@ -1,4 +1,4 @@
-** Notes app using springboot and postgresql **
+Notes app using springboot and postgresql 
 
 Java 11 
 
