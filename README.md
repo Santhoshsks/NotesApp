@@ -1,13 +1,13 @@
-Notes app using springboot and postgresql 
+# Notes app using springboot and postgresql 
 
-Java 11 
+## Java 11 
 
-Springboot version 2.2.5
+## Springboot version 2.2.5
 
-JPA
+## JPA
 
-Spring Web (Has Tomcat built in)
+## Spring Web (Has Tomcat built in)
 
-lombok
+## lombok
 
-Postgresql driver
+## Postgresql driver
