@@ -1,6 +1,5 @@
 package org.example.notes.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.example.notes.user.User;

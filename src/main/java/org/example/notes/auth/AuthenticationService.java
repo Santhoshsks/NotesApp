@@ -22,6 +22,9 @@ public class AuthenticationService {
     private final JwtService jwtService;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already in use");
+        }
         User user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())

@@ -41,7 +41,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) //Preferred expiration? ask mentors
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 60)) //Preferred expiration? ask mentors
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

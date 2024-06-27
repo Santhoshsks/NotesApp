@@ -7,23 +7,18 @@ import org.example.notes.repository.NotesRepository;
 import org.example.notes.service.NoteService;
 import org.example.notes.user.User;
 import org.example.notes.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class NoteServiceImpl implements NoteService {
 
-    @Autowired
     private final NotesRepository notesRepository;
-
     private final UserService userService;
 
     @Override
@@ -40,20 +35,28 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<Note> getAllNotes(String sortBy, String sortDirection) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
-        return notesRepository.findAll(sort);
+        return notesRepository.findByUser(user, sort);
     }
 
     @Override
     public Note getNoteById(String id) {
-        return notesRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Note does not exist with id: " + id));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        return (Note) notesRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new ResourceNotFoundException("Note does not exist with id: " + id));
     }
 
     @Override
     public Note updateNote(String id, Note updatedNote) {
-        Note note =  notesRepository.findById(id)
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        Note note = (Note) notesRepository.findByIdAndUser(id, user)
                 .orElseThrow(() -> new ResourceNotFoundException("Note does not exist with id: " + id));
 
         note.setTitle(updatedNote.getTitle());
@@ -61,12 +64,16 @@ public class NoteServiceImpl implements NoteService {
         note.setColor(updatedNote.getColor());
         note.setPinned(updatedNote.isPinned());
         note.setDeleted(updatedNote.isDeleted());
+
         return notesRepository.save(note);
     }
 
     @Override
     public void deleteNoteById(String id) {
-        notesRepository.findById(id)
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        Note note = (Note) notesRepository.findByIdAndUser(id, user)
                 .orElseThrow(() -> new ResourceNotFoundException("Note does not exist with id: " + id));
 
         notesRepository.deleteById(id);
@@ -75,13 +82,12 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public List<Note> getAllNotesByKeyword(String keyword) {
         if (keyword != null) {
-            return notesRepository.findAll(keyword);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = (User) authentication.getPrincipal();
+
+            return notesRepository.findAllByUserAndKeyword(user, keyword);
         }
-        return new ArrayList<>();
+        return List.of();
     }
 
-    @Override
-    public List<Note> filterNotes(String tag, LocalDate startDate, LocalDate endDate) {
-        return notesRepository.filterNotes(tag, startDate, endDate);
-    }
 }
