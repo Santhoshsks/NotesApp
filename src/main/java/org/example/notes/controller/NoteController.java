@@ -2,15 +2,12 @@ package org.example.notes.controller;
 
 import org.example.notes.entity.Note;
 import org.example.notes.service.NoteService;
-import org.example.notes.user.User;
 import org.example.notes.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
