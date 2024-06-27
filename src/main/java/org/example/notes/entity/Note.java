@@ -1,6 +1,9 @@
 package org.example.notes.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 import lombok.*;
+import org.example.notes.user.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -42,4 +45,8 @@ public class Note {
     @LastModifiedDate
     private Date updatedAt;
 
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 }

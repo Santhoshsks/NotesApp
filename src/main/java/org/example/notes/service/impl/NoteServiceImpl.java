@@ -5,8 +5,12 @@ import org.example.notes.entity.Note;
 import org.example.notes.exception.ResourceNotFoundException;
 import org.example.notes.repository.NotesRepository;
 import org.example.notes.service.NoteService;
+import org.example.notes.user.User;
+import org.example.notes.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,8 +24,17 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private final NotesRepository notesRepository;
 
+    private final UserService userService;
+
     @Override
     public Note createNote(Note note) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        String email = user.getEmail();
+
+        User foundUser = userService.getUserByEmail(email);
+        note.setUser(foundUser);
+
         return notesRepository.save(note);
     }
 
@@ -46,6 +59,8 @@ public class NoteServiceImpl implements NoteService {
         note.setTitle(updatedNote.getTitle());
         note.setContent(updatedNote.getContent());
         note.setColor(updatedNote.getColor());
+        note.setPinned(updatedNote.isPinned());
+        note.setDeleted(updatedNote.isDeleted());
         return notesRepository.save(note);
     }
 
