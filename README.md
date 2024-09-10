@@ -2,8 +2,8 @@
 
 ### Dependencies
 Java 11 \
-Springboot version 2.4.0 \
+Springboot version 2.2.5 \
 JPA \
-Spring Web \
+Spring Web (Has Tomcat built in) \
 lombok \
 Postgresql driver
