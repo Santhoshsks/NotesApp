@@ -7,3 +7,6 @@ JPA \
 Spring Web (Has Tomcat built in) \
 lombok \
 Postgresql driver
+
+#### Home Page
+![Home page](images/LoginPage.png)
