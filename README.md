@@ -21,4 +21,4 @@ Postgresql driver
 ![Notes page](images/notesPage.png)
 
 #### Notes Page Features
-![Notes page](images/homePage2.png)
+![Notes page](images/notesPage2.png)
