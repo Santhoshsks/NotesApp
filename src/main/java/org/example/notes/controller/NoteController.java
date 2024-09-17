@@ -88,6 +88,7 @@ public class NoteController {
         noteDTO.setId(note.getId());
         noteDTO.setTitle(note.getTitle());
         noteDTO.setContent(note.getContent());
+        noteDTO.setArchived(note.isArchived());
         noteDTO.setDeleted(note.isDeleted());
         noteDTO.setPinned(note.isPinned());
         noteDTO.setTags(note.getTags());

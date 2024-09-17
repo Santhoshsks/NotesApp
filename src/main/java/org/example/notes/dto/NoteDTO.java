@@ -14,6 +14,7 @@ public class NoteDTO {
     private String id;
     private String title;
     private String content;
+    private boolean archived;
     private boolean deleted;
     private boolean pinned;
     private List<String> tags;

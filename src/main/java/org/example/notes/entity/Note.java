@@ -26,7 +26,7 @@ public class Note {
 
     @Column(columnDefinition = "TEXT")
     private String content;
-
+    private boolean archived;
     private boolean deleted;
     private boolean pinned;
 

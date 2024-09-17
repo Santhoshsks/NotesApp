@@ -64,6 +64,7 @@ public class NoteServiceImpl implements NoteService {
         note.setColor(updatedNote.getColor());
         note.setPinned(updatedNote.isPinned());
         note.setDeleted(updatedNote.isDeleted());
+        note.setArchived(updatedNote.isArchived());
 
         return notesRepository.save(note);
     }
