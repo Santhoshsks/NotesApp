@@ -4,7 +4,7 @@
 Java 11 \
 Springboot version \
 JPA \
-Spring Web (Has Tomcat built in) \
+Spring Web \
 lombok \
 Postgresql driver
 
